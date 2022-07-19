@@ -57,9 +57,6 @@ public class UserCrudServiceImpl implements UserCrudService {
             if(!user.nickNameIsNull()){
                 fetchedUser.get().setNickName(user.getNickName());
             }
-            if(!user.authIsNull()){
-                fetchedUser.get().setAuth(user.getAuth());
-            }
             return userRepository.save(fetchedUser.get());
         }
         else return null;

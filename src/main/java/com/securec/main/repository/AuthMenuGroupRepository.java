@@ -13,8 +13,10 @@ import java.util.UUID;
 
 @Repository
 public interface AuthMenuGroupRepository extends JpaRepository<AuthMenuGroup, UUID> {
-    Optional<List<AuthMenuGroup>> findAllByAuthCode(String authCode);
-    Optional<List<AuthMenuGroup>> findAllByMenuGroupCode(String menuGroupCode);
+    /*
+    Optional<List<AuthMenuGroup>> findAllByAuthCodeContains(String authCode);
+    Optional<List<AuthMenuGroup>> findAllByMenuGroupCodeContains(String menuGroupCode);
     Optional<AuthMenuGroup> deleteByAuthCode(String authCode);
     Optional<AuthMenuGroup> deleteByMenuGroupCode(String menuGroupCode);
+    */
 }
