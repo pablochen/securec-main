@@ -10,6 +10,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static java.time.LocalTime.now;
+
 @Entity
 @Getter
 @Setter
@@ -22,7 +24,7 @@ public class User extends BaseEntity{
     @Column(columnDefinition = "BINARY(16)")
     private UUID userSeq;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String userId;
 
     @Column
@@ -35,6 +37,10 @@ public class User extends BaseEntity{
     private String password;
 
     @Column(nullable = false)
+    @ColumnDefault("0")
+    private int passwordErrorCount;
+
+    @Column(nullable = false)
     @ColumnDefault("'N'")
     @Convert(converter= BooleanToYNConverter.class)
     private boolean lockYn;
@@ -45,7 +51,7 @@ public class User extends BaseEntity{
     @Column(nullable = false)
     @ColumnDefault("'N'")
     @Convert(converter= BooleanToYNConverter.class)
-    private String dormantYn;
+    private boolean dormantYn;
 
     @Column
     private LocalDateTime dormantAt;
@@ -53,7 +59,7 @@ public class User extends BaseEntity{
     @Column(nullable = false)
     @ColumnDefault("'N'")
     @Convert(converter= BooleanToYNConverter.class)
-    private String leaveYn;
+    private boolean leaveYn;
 
     @Column
     private LocalDateTime leftAt;
@@ -94,4 +100,79 @@ public class User extends BaseEntity{
         this.nickName = user.getNickName();
         this.password = user.getPassword();
     }
+
+    /**
+     * isNull 메소드
+     */
+    public boolean userNameIsNull() {
+        return this.userName == null ? true : false;
+    }
+
+    public boolean nickNameIsNull() {
+        return this.nickName == null ? true : false;
+    }
+
+    public boolean authIsNull() {
+        return this.auth == null ? true : false;
+    }
+
+    /**
+     * 유저 상태 전환 메소드
+     */
+    public boolean lock() {
+        try {
+            this.setLockYn(true);
+            this.setLockedAt(LocalDateTime.now());
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
+    public boolean unLock() {
+        try {
+            this.setLockYn(false);
+            this.setPasswordErrorCount(0);
+            this.setLockedAt(null);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
+    public boolean dormant() {
+        try {
+            this.setDormantYn(true);
+            this.setDormantAt(LocalDateTime.now());
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
+    public boolean unDormant() {
+        try {
+            this.setDormantYn(false);
+            this.setDormantAt(null);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
+    public boolean leave() {
+        try {
+            this.setLeaveYn(true);
+            this.setLeftAt(LocalDateTime.now());
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
 }

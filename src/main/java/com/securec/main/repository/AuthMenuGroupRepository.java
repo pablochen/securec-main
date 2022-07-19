@@ -7,10 +7,14 @@ import com.securec.main.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface AuthMenuGroupRepository extends JpaRepository<AuthMenuGroup, UUID> {
-    AuthMenuGroup findByAuth(Auth auth);
-    MenuGroup findByMenuGroup(MenuGroup menuGroup);
+    Optional<List<AuthMenuGroup>> findAllByAuthCode(String authCode);
+    Optional<List<AuthMenuGroup>> findAllByMenuGroupCode(String menuGroupCode);
+    Optional<AuthMenuGroup> deleteByAuthCode(String authCode);
+    Optional<AuthMenuGroup> deleteByMenuGroupCode(String menuGroupCode);
 }

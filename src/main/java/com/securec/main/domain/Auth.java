@@ -23,14 +23,14 @@ public class Auth extends BaseEntity{
     @Column(columnDefinition = "BINARY(16)")
     private UUID authSeq;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String authCode;
 
     @Column
     private String authName;
 
     @Column
-    private int authOrd;
+    private Integer authOrd;
 
     @Column(nullable = false)
     @ColumnDefault("'Y'")
@@ -91,5 +91,16 @@ public class Auth extends BaseEntity{
         this.authCode = auth.getAuthCode();
         this.authName = auth.getAuthName();
         this.authOrd = auth.getAuthOrd();
+    }
+
+    /**
+     * isNull 메소드
+     */
+    public boolean authOrdIsNull() {
+        return this.authOrd == null ? true : false;
+    }
+
+    public boolean authNameIsNull() {
+        return this.authName == null ? true : false;
     }
 }

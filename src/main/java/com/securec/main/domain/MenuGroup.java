@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Entity
 @Getter
@@ -23,14 +24,15 @@ public class MenuGroup extends BaseEntity{
     @Column(columnDefinition = "BINARY(16)")
     private UUID menuGroupSeq;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String menuGroupCode;
 
     @Column
     private String menuGroupName;
 
     @Column
-    private int menuGroupOrd;
+    @ColumnDefault("0")
+    private Integer menuGroupOrd;
 
     @Column(nullable = false)
     @ColumnDefault("'Y'")
@@ -59,6 +61,17 @@ public class MenuGroup extends BaseEntity{
     public void removeMenu(Menu menu) {
         this.getMenus().remove(this);
     }
+
+    public List<Menu> setMenus(List<Menu> menus) {
+        this.menus.stream().
+                forEach(menu -> {menu.removeMenuGroup();});
+        this.menus = menus;
+        menus.stream()
+                .filter(menu -> menu.getMenuGroup() != this)
+                .forEach(menu -> {menu.setMenuGroup(this);});
+        return this.menus;
+    }
+
 
     /**
      * Auth:AuthMenuGroup = 1:N
@@ -91,5 +104,47 @@ public class MenuGroup extends BaseEntity{
         this.menuGroupCode = menuGroup.getMenuGroupCode();
         this.menuGroupName = menuGroup.getMenuGroupName();
         this.menuGroupOrd = menuGroup.getMenuGroupOrd();
+    }
+
+    /**
+     * isNull 메소드
+     */
+    public boolean menuGroupOrdIsNull() {
+        return this.menuGroupOrd == null ? true : false;
+    }
+
+    public boolean menuGroupNameIsNull() {
+        return this.menuGroupName == null ? true : false;
+    }
+
+    public boolean menuIsNull() {
+        return this.getMenus() == null ? true : false;
+    }
+    public boolean authMenuGroupIsNull() {
+        return this.getAuthMenuGroups() == null ? true : false;
+    }
+
+
+    /**
+     * 메뉴 상태 전환 메소드
+     */
+    public boolean use() {
+        try {
+            this.setUseYn(true);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
+    public boolean unUse() {
+        try {
+            this.setUseYn(false);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
     }
 }
