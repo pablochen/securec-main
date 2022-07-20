@@ -1,6 +1,7 @@
 package com.securec.main.serviceImpl;
 
 
+import com.securec.main.domain.Auth;
 import com.securec.main.domain.User;
 import com.securec.main.repository.UserRepository;
 import com.securec.main.service.UserService;
@@ -63,6 +64,16 @@ public class UserServiceImpl implements UserService {
         final Optional<User> fetchedUser = userRepository.findByUserId(userId);
         if(fetchedUser.isPresent()){
             fetchedUser.get().leave();
+            return userRepository.save(fetchedUser.get());
+        }
+        else return null;
+    }
+
+    @Override
+    public User patchUserAuth(String userId, Auth auth) {
+        final Optional<User> fetchedUser = userRepository.findByUserId(userId);
+        if(fetchedUser.isPresent()){
+            fetchedUser.get().setAuth(auth);
             return userRepository.save(fetchedUser.get());
         }
         else return null;

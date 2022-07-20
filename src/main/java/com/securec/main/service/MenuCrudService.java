@@ -11,10 +11,10 @@ import java.util.Optional;
 
 public interface MenuCrudService {
     public boolean createMenu(Menu menu);
-    public Optional<Menu> getMenuByMenuCode(String menuCode);
-    public Optional<List<Menu>> getAllMenusByMenuCode(String menuCode);
-    public Optional<Menu> getMenuByMenuName(String menuName);
-    public Optional<List<Menu>> getAllMenusByMenuName(String menuName);
+    public Optional<Menu> findMenuByMenuCode(String menuCode);
+    public Optional<List<Menu>> findAllMenusByMenuCode(String menuCode);
+    public Optional<Menu> findMenuByMenuName(String menuName);
+    public Optional<List<Menu>> findAllMenusByMenuName(String menuName);
     public Menu updateMenu(String menuCode, Menu menu);
     public Menu patchMenu(String menuCode, Menu menu);
 

@@ -28,12 +28,12 @@ public class MenuGroupCrudServiceImpl implements MenuGroupCrudService {
     }
 
     @Override
-    public Optional<MenuGroup> getMenuGroupByMenuGroupCode(String MenuGroupCode){
+    public Optional<MenuGroup> findMenuGroupByMenuGroupCode(String MenuGroupCode){
         return menuGroupRepository.findByMenuGroupCode(MenuGroupCode);
     }
 
     @Override
-    public Optional<List<MenuGroup>> getMenuGroupsByMenuGroupCode(String MenuGroupCode){
+    public Optional<List<MenuGroup>> findMenuGroupsByMenuGroupCode(String MenuGroupCode){
         return menuGroupRepository.findAllByMenuGroupCodeContains(MenuGroupCode);
     }
 

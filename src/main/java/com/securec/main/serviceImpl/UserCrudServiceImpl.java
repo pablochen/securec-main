@@ -28,12 +28,12 @@ public class UserCrudServiceImpl implements UserCrudService {
     }
 
     @Override
-    public Optional<User> getUserByUserId(String userId){
+    public Optional<User> findUserByUserId(String userId){
         return userRepository.findByUserId(userId);
     }
 
     @Override
-    public Optional<List<User>> getUsersByUserId(String userId){
+    public Optional<List<User>> findUsersByUserId(String userId){
         return userRepository.findAllByUserIdContains(userId);
     }
 

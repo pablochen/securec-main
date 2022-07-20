@@ -28,22 +28,22 @@ public class AuthCrudServiceImpl implements AuthCrudService {
     }
 
     @Override
-    public Optional<Auth> getAuthByAuthCode(String authCode){
+    public Optional<Auth> findAuthByAuthCode(String authCode){
         return authRepository.findByAuthCode(authCode);
     }
 
     @Override
-    public Optional<List<Auth>> getAllAuthsByAuthCode(String authCode){
+    public Optional<List<Auth>> findAllAuthsByAuthCode(String authCode){
         return authRepository.findAllByAuthCodeContains(authCode);
     }
 
     @Override
-    public Optional<Auth> getAuthByAuthName(String authName){
+    public Optional<Auth> findAuthByAuthName(String authName){
         return authRepository.findByAuthName(authName);
     }
 
     @Override
-    public Optional<List<Auth>> getAllAuthsByAuthName(String authName){
+    public Optional<List<Auth>> findAllAuthsByAuthName(String authName){
         return authRepository.findAllByAuthNameContains(authName);
     }
 
@@ -70,6 +70,11 @@ public class AuthCrudServiceImpl implements AuthCrudService {
             return authRepository.save(fetchedAuth.get());
         }
         else return null;
+    }
+
+    @Override
+    public Optional<Auth> getAuthByAuthCode(String authCode) {
+        return authRepository.getByAuthCode(authCode);
     }
 
 }

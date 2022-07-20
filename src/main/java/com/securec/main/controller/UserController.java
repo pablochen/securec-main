@@ -29,9 +29,9 @@ public class UserController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/users/{userId}")
     public ResponseEntity<User> userList(@PathVariable String userId) {
-        Optional<User> user = userCrudService.getUserByUserId(userId);
+        Optional<User> user = userCrudService.findUserByUserId(userId);
         if(user.isPresent()){
             return new ResponseEntity<User>(user.get(), HttpStatus.OK);
         }
@@ -40,7 +40,7 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/user/{id}")
+    @PatchMapping("/users/{userId}")
     public ResponseEntity<User> patchUser(@PathVariable String userId, @RequestBody User user) {
         User updateUser = userCrudService.patchUser(userId, user);
         if(updateUser != null){

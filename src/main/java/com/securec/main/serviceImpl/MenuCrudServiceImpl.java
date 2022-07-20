@@ -28,22 +28,22 @@ public class MenuCrudServiceImpl implements MenuCrudService {
     }
 
     @Override
-    public Optional<Menu> getMenuByMenuCode(String menuCode){
+    public Optional<Menu> findMenuByMenuCode(String menuCode){
         return menuRepository.findByMenuCode(menuCode);
     }
 
     @Override
-    public Optional<List<Menu>> getAllMenusByMenuCode(String menuCode){
+    public Optional<List<Menu>> findAllMenusByMenuCode(String menuCode){
         return menuRepository.findAllByMenuCodeContains(menuCode);
     }
 
     @Override
-    public Optional<Menu> getMenuByMenuName(String menuName){
+    public Optional<Menu> findMenuByMenuName(String menuName){
         return menuRepository.findByMenuName(menuName);
     }
 
     @Override
-    public Optional<List<Menu>> getAllMenusByMenuName(String menuName){
+    public Optional<List<Menu>> findAllMenusByMenuName(String menuName){
         return menuRepository.findAllByMenuNameContains(menuName);
     }
 

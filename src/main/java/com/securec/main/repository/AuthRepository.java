@@ -16,4 +16,7 @@ public interface AuthRepository extends JpaRepository<Auth, UUID> {
 
     Optional<Auth> findByAuthName(String authName);
     Optional<List<Auth>> findAllByAuthNameContains(String authName);
+
+    Optional<Auth> getByAuthCode(String authCode);
+
 }

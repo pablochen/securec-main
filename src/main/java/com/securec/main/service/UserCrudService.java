@@ -11,8 +11,9 @@ import java.util.Optional;
 
 public interface UserCrudService {
     public boolean createUser(User user);
-    public Optional<User> getUserByUserId(String userId);
-    public Optional<List<User>> getUsersByUserId(String userId);
+    public Optional<User> findUserByUserId(String userId);
+    public Optional<List<User>> findUsersByUserId(String userId);
     public User updateUser(String userId, User user);
     public User patchUser(String userId, User user);
+
 }
